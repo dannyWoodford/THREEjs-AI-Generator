@@ -51,6 +51,14 @@ html {
   @apply w-full bg-transparent text-sm border border-gray-300 p-2 outline-none flex-1;
 }
 
+.aigenerator-container {
+  @apply absolute left-full ml-3 glassmorphism p-3 w-[195px] h-[220px] rounded-md flex flex-col gap-4;
+}
+
+.aigenerator-textarea {
+  @apply w-full bg-transparent text-sm border border-gray-300 p-2 outline-none flex-1;
+}
+
 .filepicker-container {
   @apply absolute left-full ml-3 glassmorphism p-3 w-[195px] h-[220px] flex flex-col rounded-md;
 }
@@ -61,6 +69,19 @@ html {
 
 .tab-btn {
   @apply w-14 h-14 flex justify-center items-center cursor-pointer select-none;
+}
+
+.codeinput-container {
+  @apply absolute left-0;
+	border-radius: 12px;
+	background-color: rgba(28, 51, 227, 0.25);
+	bottom: 85px;
+	width: 94%;
+	margin: 0 3%;
+}
+
+.codeinput-container textarea {
+	color: white;
 }
 
 .glassmorphism {
