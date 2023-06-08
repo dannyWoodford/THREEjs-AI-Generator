@@ -18,18 +18,12 @@ router.route('/').get((req, res) => {
 
 router.route('/').post(async (req, res) => {
 	try {
-		const { prompt } = req.body['promptCode']
-		console.log('%cgenerateCode body', 'color:red;font-size:14px;', req.body['promptCode'])
-		console.log('%cprompt prompt prompt', 'color:red;font-size:14px;', prompt)
-
 		const response = await openai.createChatCompletion({
 			model: 'gpt-3.5-turbo',
 			messages: [{ role: 'user', content: req.body['promptCode'] }],
 		})
 
 		const responseCode = response.data.choices[0].message.content
-		// console.log('%cgenerateCode ROUTES', 'color:red;font-size:14px;', responseCode)
-		// res.status(200).json({ message: `${response.data}` })
 
 		res.status(200).json({ code: responseCode })
 	} catch (error) {
