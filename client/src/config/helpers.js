@@ -48,8 +48,8 @@ function removeJavaScriptWord(str) {
 }
 
 function removeJSWord(str) {
-	const regex = /(\s)js(\s)/gi
-	return str.replace(regex, '$1$2').trim()
+  const regex = /\bjs\b/gi
+	return str.replace(regex, '').trim()
 }
 
 export const sanitizeResponse = (string) => {
