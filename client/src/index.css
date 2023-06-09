@@ -21,9 +21,8 @@ html {
 
 .home {
 	@apply w-fit xl:h-full flex xl:justify-between justify-start items-start flex-col max-xl:gap-7 absolute z-10;
-	padding-left: 6vw;
 	pointer-events: none;
-	right: 16vw;
+	right: 10vw;
 	/* height: auto;
 	bottom: 8vh; */
 }
@@ -39,7 +38,6 @@ html {
 }
 
 .sub-text {
-	/* font-weight: 900; */
 	align-items: center;
 }
 
@@ -63,7 +61,7 @@ html {
 
 .top-pane {
 	background-color: hsl(225, 6%, 25%);
-	/* z-index: 1; */
+	z-index: 11;
 }
 
 .pane {
@@ -139,6 +137,7 @@ html {
   background: transparent;
 	transition: background 0.25s ease;
 	background: #2a2f3d;
+	z-index: 11;
 }
 
 .gutter:hover {

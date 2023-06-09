@@ -20,7 +20,7 @@ router.route('/').post(async (req, res) => {
 	try {
 		const response = await openai.createChatCompletion({
 			model: 'gpt-3.5-turbo',
-			messages: [{ role: 'user', content: req.body['promptCode'] }],
+			messages: [{ role: 'user', content: req.body['input'] }],
 			temperature: 0.6,
 		})
 

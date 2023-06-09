@@ -1,4 +1,3 @@
-import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useSnapshot } from 'valtio'
 
@@ -19,9 +18,9 @@ const Home = () => {
 							</h1>
 						</motion.div>
 						<motion.div {...headContentAnimation} className='flex flex-col gap-5 sub-text'>
-							<p className='max-w-md font-normal text-gray-300 text-base'>
-								Create your unique and exclusive shirt with our brand-new 3D customization tool. <strong>Unleash your imagination</strong> and define your own
-								style.
+							<p className='max-w-lg font-normal text-gray-300 text-base'>
+								Have OpenAI write basic THREE.js code and edit the result. <strong>Warning!!!</strong> Prompts should be relatively basic. Code quality varies
+								but can be a useful head start. Try the example prompt...
 							</p>
 						</motion.div>
 					</motion.div>
