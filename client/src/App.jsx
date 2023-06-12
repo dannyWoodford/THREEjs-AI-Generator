@@ -16,13 +16,14 @@ function App() {
 	const [srcDoc, setSrcDoc] = useState()
 
 	const [promptCode, setPromptCode] = useState(
-		'Create a yellow sphere with arguments of [2, 32, 16]. Have the sphere bounce off a blue floor. The floor should have a height and width of 110. The max height of the bounce should be 5. The floor should have a y position of 0. The floor should have a x rotation of -Math.PI / 2. All materials should be MeshPhongMaterial and have a shininess of 100. Set the camera at a position of [0, 5, 15]. Make the background of the scene light-grey. Add a light fog.'
+		'Create the solar system with the 8 planets and a sun. The planets should orbit the sun and have white orbit lines to show their path. The orbit lines should be made with LineLoop and have a "x" rotation of "-Math.PI / 2". PLanets and sun materials should be MeshLambertMaterial. Orbit lines materials should be MeshBasicMaterial. Planets should have color closest to the real planets. The sun would have a yellow emissive. PerspectiveCamera should have a far of 5000, a "y" position of 200, and a "x" position of 800.'
+		// 'Create a yellow sphere with arguments of [2, 32, 16]. Have the sphere bounce off a blue floor. The floor should have a height and width of 110. The max height of the bounce should be 5. The floor should have a y position of 0. The floor should have a x rotation of -Math.PI / 2. All materials should be MeshPhongMaterial and have a shininess of 100. Set the camera at a position of [0, 5, 15]. Make the background of the scene light-grey. Add a light fog.'
 		// 'Write three.js code that creates an earth with a radius of 5. A moon should orbit around the earth. the moon should have a radius of 1. Do not add lights. Set the camera at a position of [0, 0, 10]. Make the background of the scene black.`
 	)
 	const [generatingCode, setGeneratingCode] = useState(false)
 	const [checkboxState, setCheckboxState] = useState({
-		enableThreePointLighting: true,
-		enableShadows: true,
+		enableStats: true,
+		enableShadows: false,
 		enableOrbitControls: true,
 	})
 
@@ -106,8 +107,9 @@ function App() {
 					}
 
 					document.querySelector('body').style.margin = "0"
+					document.querySelector('body').style.overflow = "hidden"
 					document.querySelector('canvas').style.filter = "blur(28px)"
-					document.querySelector('canvas').style["-webkit-tap-highlight-color"] = "yellow"
+					document.querySelector('canvas').style.outline = "none"
 				</script>
 
 				</html>
@@ -129,6 +131,7 @@ function App() {
 					<head>
 						<script src="https://cdn.jsdelivr.net/npm/three@0.122.0/build/three.min.js"></script>
 						<script src="https://cdn.jsdelivr.net/npm/three@0.122.0/examples/js/controls/OrbitControls.min.js"></script>
+						<script src="//mrdoob.github.io/stats.js/build/stats.min.js" crossorigin="anonymous"></script>
 					</head>
 					<script type="module">
 						${js}
@@ -148,25 +151,26 @@ function App() {
 			? `
 // Add OrbitControls
 let controls = new THREE.OrbitControls(camera, renderer.domElement);
-` : ``
-
-		let lightingPrompt = checkboxState.enableThreePointLighting
-			? `
-let genSpotLight = new THREE.SpotLight(0xffa95c,1);
-genSpotLight.position.set(-25,30,25);
-genSpotLight.castShadow = true;
-scene.add( genSpotLight );
-
-let hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820, 4);
-scene.add(hemiLight);
 `
 			: ``
 
 		setJs(
 			snap.generatedCode +
-				lightingPrompt +
+				// statsPrompt +
 				orbitPrompt +
+				// Add Spotlight
 				`
+let genSpotLight = new THREE.SpotLight(0xffa95c,1);
+genSpotLight.position.set(-25,30,25);
+genSpotLight.castShadow = true;
+scene.add( genSpotLight );
+` +
+				`
+let ambLight = new THREE.AmbientLight('white', 0.3)
+scene.add(ambLight)
+` +
+				`
+// Handle Resize
 window.addEventListener( 'resize', onWindowResize, false );
 
 function onWindowResize(){
@@ -175,8 +179,10 @@ camera.updateProjectionMatrix();
 renderer.setSize( window.innerWidth, window.innerHeight );
 }` +
 				`
+// Fix CSS of generated iFrame
 document.querySelector('body').style.margin = "0"
-document.querySelector('canvas').style["-webkit-tap-highlight-color"] = "yellow"
+document.querySelector('body').style.overflow = "hidden"
+document.querySelector('canvas').style.outline = "none"
 `
 		)
 	}, [snap.isCodeGenerated])
@@ -188,14 +194,14 @@ document.querySelector('canvas').style["-webkit-tap-highlight-color"] = "yellow"
 			setGeneratingCode(true)
 
 			let shadowsPrompt = checkboxState.enableShadows ? ` Enable shadows. All meshes should set receiveShadow and castShadow to true.` : ` Disable shadows.`
-			let lightingPrompt = checkboxState.enableThreePointLighting ? ` Do not include lights.` : ``
+			let statsPrompt = checkboxState.enableStats ? ` Add stats.` : ``
 
 			let input =
 				`Write three.js code. ` +
 				promptCode +
-				lightingPrompt +
+				statsPrompt +
 				shadowsPrompt +
-				` Do not enable OrbitControls. Do not include import statements. Do not use libraries other then three.js.`
+				` Do not add OrbitControls. The renderer should have antialias set to true. Do not include code to handle resize. Do not include import statements. Do not use libraries other then three.js.`
 
 			// console.log('%cPROMPT + toggled code', 'color:green;font-size:22px;', input)
 
@@ -227,8 +233,8 @@ document.querySelector('canvas').style["-webkit-tap-highlight-color"] = "yellow"
 
 	return (
 		<main className='app transition-all ease-in'>
-			<Home />
-			<Split className='editor' sizes={[40, 60]} direction='horizontal'>
+			<Home generatingCode={generatingCode} />
+			<Split className='editor' sizes={[35, 65]} direction='horizontal'>
 				<div className='pane top-pane'>
 					<Split className='left-split' sizes={[70, 29]} direction='vertical'>
 						<Editor language='javascript' displayName='THREE.js AI Generator' value={js} onChange={setJs} />

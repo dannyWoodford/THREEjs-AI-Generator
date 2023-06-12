@@ -22,9 +22,24 @@ html {
 .home {
 	@apply w-fit xl:h-full flex xl:justify-between justify-start items-start flex-col max-xl:gap-7 absolute z-10;
 	pointer-events: none;
-	right: 10vw;
+	right: 14vw;
 	/* height: auto;
 	bottom: 8vh; */
+}
+
+.spinner {
+	@apply w-fit  absolute z-10;
+	pointer-events: none;
+	right: 2vw;
+	bottom: 2vw;
+	display: flex;
+	flex-direction: row;
+}
+.spinner h1 {
+	color: white;
+	font-size: 1.4rem;
+	margin-right: 14vw;
+	align-self: center;
 }
 
 .home-content {

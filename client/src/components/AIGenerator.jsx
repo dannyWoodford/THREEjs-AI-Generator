@@ -34,21 +34,21 @@ const AIGenerator = ({ promptCode, setPromptCode, generatingCode, handleSubmit, 
 			</div>
 			<List>
 				<ListItem className='p-0'>
-					<label htmlFor='vertical-list-lighting' className='px-3 flex items-center w-full cursor-pointer'>
+					<label htmlFor='vertical-list-stats' className='px-3 flex items-center w-full cursor-pointer'>
 						<ListItemPrefix className='mr-3'>
 							<Checkbox
-								id='vertical-list-lighting'
+								id='vertical-list-stats'
 								ripple={false}
 								className='hover:before:opacity-0'
 								containerProps={{
 									className: 'p-0',
 								}}
-								checked={checkboxState.enableThreePointLighting}
-								onChange={() => handleCheckboxChange('enableThreePointLighting')}
+								checked={checkboxState.enableStats}
+								onChange={() => handleCheckboxChange('enableStats')}
 							/>
 						</ListItemPrefix>
 						<Typography color='blue-gray' className='font-medium'>
-							Use basic 3 point lighting setup
+							Enable Stats Panel
 						</Typography>
 					</label>
 				</ListItem>
