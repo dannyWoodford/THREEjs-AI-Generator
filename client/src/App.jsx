@@ -161,12 +161,11 @@ let controls = new THREE.OrbitControls(camera, renderer.domElement);
 				// Add Spotlight
 				`
 let genSpotLight = new THREE.SpotLight(0xffa95c,1);
-genSpotLight.position.set(-25,30,25);
+genSpotLight.position.set(0,350,0);
 genSpotLight.castShadow = true;
 scene.add( genSpotLight );
-` +
-				`
-let ambLight = new THREE.AmbientLight('white', 0.3)
+
+let ambLight = new THREE.AmbientLight('white', 0.1)
 scene.add(ambLight)
 ` +
 				`
@@ -205,7 +204,7 @@ document.querySelector('canvas').style.outline = "none"
 
 			// console.log('%cPROMPT + toggled code', 'color:green;font-size:22px;', input)
 
-			const response = await fetch('http://localhost:8080/v1/chat/completions', {
+			const response = await fetch('https://threejs-ai-generator.onrender.com/v1/chat/completions', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
