@@ -12,7 +12,7 @@ const openai = new OpenAI({
 })
 
 router.route('/').get((req, res) => {
-	res.status(200).json({ message: 'Hello from generateCode ROUTES' })
+	res.status(200).json({ message: 'Hello from generateCode ROUTES. model: gpt-4o' })
 })
 
 router.route('/').post(async (req, res) => {
