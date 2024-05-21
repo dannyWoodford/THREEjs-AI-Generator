@@ -23,7 +23,6 @@ function App() {
 	const [generatingCode, setGeneratingCode] = useState(false)
 	const [checkboxState, setCheckboxState] = useState({
 		enableStats: true,
-		enableShadows: false,
 		enableOrbitControls: true,
 	})
 
@@ -192,14 +191,12 @@ document.querySelector('canvas').style.outline = "none"
 		try {
 			setGeneratingCode(true)
 
-			let shadowsPrompt = checkboxState.enableShadows ? ` Enable shadows. All meshes should set receiveShadow and castShadow to true.` : ` Disable shadows.`
 			let statsPrompt = checkboxState.enableStats ? ` Add stats.` : ``
 
 			let input =
 				`Write three.js code. ` +
 				promptCode +
 				statsPrompt +
-				shadowsPrompt +
 				` Do not add OrbitControls. The renderer should have antialias set to true. Do not include code to handle resize. Do not include import statements. Do not use libraries other then three.js.`
 
 			// console.log('%cPROMPT + toggled code', 'color:green;font-size:22px;', input)

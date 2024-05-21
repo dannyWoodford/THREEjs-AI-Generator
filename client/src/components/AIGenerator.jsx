@@ -53,25 +53,6 @@ const AIGenerator = ({ promptCode, setPromptCode, generatingCode, handleSubmit, 
 					</label>
 				</ListItem>
 				<ListItem className='p-0'>
-					<label htmlFor='vertical-list-shadows' className='px-3 flex items-center w-full cursor-pointer'>
-						<ListItemPrefix className='mr-3'>
-							<Checkbox
-								id='vertical-list-shadows'
-								ripple={false}
-								className='hover:before:opacity-0'
-								containerProps={{
-									className: 'p-0',
-								}}
-								checked={checkboxState.enableShadows}
-								onChange={() => handleCheckboxChange('enableShadows')}
-							/>
-						</ListItemPrefix>
-						<Typography color='blue-gray' className='font-medium'>
-							Enable Shadows
-						</Typography>
-					</label>
-				</ListItem>
-				<ListItem className='p-0'>
 					<label htmlFor='vertical-list-orbitControls' className='px-3 flex items-center w-full cursor-pointer'>
 						<ListItemPrefix className='mr-3'>
 							<Checkbox
