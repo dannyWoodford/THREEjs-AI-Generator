@@ -74,10 +74,10 @@ function App() {
 						// change 'k' value for more spikes
 						let k = 6;
 						
-						for (let i = 0; i < sphere.geometry.vertices.length; i++) {
-							let p = sphere.geometry.vertices[i];
-							p.normalize().multiplyScalar(1 + 0.6 * noise.perlin3(p.x * k + time, p.y * k, p.z * k));
-						}
+						// for (let i = 0; i < sphere.geometry.vertices.length; i++) {
+						// 	let p = sphere.geometry.vertices[i];
+						// 	p.normalize().multiplyScalar(1 + 0.6 * noise.perlin3(p.x * k + time, p.y * k, p.z * k));
+						// }
 						sphere.geometry.computeVertexNormals();
 						sphere.geometry.normalsNeedUpdate = true;
 						sphere.geometry.verticesNeedUpdate = true;
@@ -204,6 +204,7 @@ document.querySelector('canvas').style.outline = "none"
 
 			// console.log('%cPROMPT + toggled code', 'color:green;font-size:22px;', input)
 
+			// testing URL: 'http://localhost:8080/v1/chat/completions'
 			const response = await fetch('https://threejs-ai-generator.onrender.com/v1/chat/completions', {
 				method: 'POST',
 				headers: {

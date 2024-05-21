@@ -1,16 +1,15 @@
 import express from 'express'
 import * as dotenv from 'dotenv'
-import { Configuration, OpenAIApi } from 'openai'
+import OpenAI from "openai";
+
 
 dotenv.config()
 
 const router = express.Router()
 
-const config = new Configuration({
+const openai = new OpenAI({
 	apiKey: process.env.OPENAI_API_KEY,
 })
-
-const openai = new OpenAIApi(config)
 
 router.route('/').get((req, res) => {
 	res.status(200).json({ message: 'Hello from generateCode ROUTES' })
@@ -18,13 +17,13 @@ router.route('/').get((req, res) => {
 
 router.route('/').post(async (req, res) => {
 	try {
-		const response = await openai.createChatCompletion({
-			model: 'gpt-3.5-turbo',
+		const response = await openai.chat.completions.create({
+			model: "gpt-4o",
 			messages: [{ role: 'user', content: req.body['input'] }],
-			temperature: 0.3,
-		})
+			// temperature: 0.3,
+		});
 
-		const responseCode = response.data.choices[0].message.content
+		const responseCode = response.choices[0].message.content
 
 		res.status(200).json({ code: responseCode })
 	} catch (error) {
