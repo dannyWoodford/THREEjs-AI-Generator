@@ -20,11 +20,10 @@ html {
 }
 
 .home {
-	@apply w-fit xl:h-full flex xl:justify-between justify-start items-start flex-col max-xl:gap-7 absolute z-10;
+	@apply h-full flex justify-start items-start flex-col absolute z-10;
 	pointer-events: none;
-	right: 14vw;
-	/* height: auto;
-	bottom: 8vh; */
+	right: 15px;
+	max-width: 50%;
 }
 
 .spinner {
@@ -43,11 +42,11 @@ html {
 }
 
 .home-content {
-	@apply flex-1 xl:justify-center justify-start flex flex-col gap-10;
+	@apply flex-1 justify-center flex flex-col gap-10;
 }
 
 .head-text {
-	@apply xl:text-[10rem] text-[6rem] xl:leading-[11rem] leading-[7rem] font-black;
+	@apply text-[10rem] leading-[11rem] font-black;
 	color: aliceblue;
 	text-align: center
 }
