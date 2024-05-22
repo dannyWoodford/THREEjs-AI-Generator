@@ -20,10 +20,10 @@ html {
 }
 
 .home {
-	@apply h-full flex justify-start items-start flex-col absolute z-10;
+	@apply h-full flex justify-start items-center flex-col absolute z-10;
 	pointer-events: none;
-	right: 15px;
-	max-width: 50%;
+	right: 0;
+	width: 65vw;
 }
 
 .spinner {
