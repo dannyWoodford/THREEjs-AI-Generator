@@ -21,10 +21,6 @@ function App() {
 		// 'Write three.js code that creates an earth with a radius of 5. A moon should orbit around the earth. the moon should have a radius of 1. Do not add lights. Set the camera at a position of [0, 0, 10]. Make the background of the scene black.`
 	)
 	const [generatingCode, setGeneratingCode] = useState(false)
-	const [checkboxState, setCheckboxState] = useState({
-		enableStats: true,
-		enableOrbitControls: true,
-	})
 
 	useEffect(() => {
 		if (!snap.intro) return
@@ -151,19 +147,14 @@ function App() {
 	useMemo(() => {
 		if (!snap.isCodeGenerated) return
 
-		let orbitPrompt = checkboxState.enableOrbitControls
-			? `
-				// Add OrbitControls
-				let controls = new THREE.OrbitControls(camera, renderer.domElement);
-			`
-			: ``
-
 		setJs(
 			snap.generatedCode +
-				// statsPrompt +
-				orbitPrompt +
-				// Add Spotlight
+				// Add Lights and OrbitControls
 				`
+					// Add OrbitControls
+					let controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+					// Add Lights
 					let genSpotLight = new THREE.SpotLight(0xffa95c,1);
 					genSpotLight.position.set(0,350,0);
 					genSpotLight.castShadow = true;
@@ -196,13 +187,10 @@ function App() {
 		try {
 			setGeneratingCode(true)
 
-			let statsPrompt = checkboxState.enableStats ? ` Add stats.` : ``
-
 			let input =
 				`Write three.js code. ` +
 				promptCode +
-				statsPrompt +
-				` Do not add OrbitControls. The renderer should have antialias set to true. Do not include code to handle resize. Do not include import statements. Do not use libraries other then three.js.`
+				` Add stats. Do not add OrbitControls. The renderer should have antialias set to true. Do not include code to handle resize. Do not include import statements. Do not use libraries other then three.js.`
 
 			// console.log('%cPROMPT + toggled code', 'color:green;font-size:22px;', input)
 
@@ -245,8 +233,6 @@ function App() {
 							setPromptCode={setPromptCode}
 							generatingCode={generatingCode}
 							handleSubmit={handleSubmitCode}
-							checkboxState={checkboxState}
-							setCheckboxState={setCheckboxState}
 						/>
 					</Split>
 				</div>
