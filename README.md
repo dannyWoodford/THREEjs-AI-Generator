@@ -1,8 +1,7 @@
 # THREEjs-AI-Generator and Live Editor
 
 ### Demo
-[Demo]([http://semver.org/](https://threejs-ai-generator.web.app/))
-[I'm an inline-style link](https://www.google.com)
+[Demo]([https://www.google.com](http://semver.org/](https://threejs-ai-generator.web.app/))
 
 ## Getting Started
 `cd` into **client** then run `npm run dev`
