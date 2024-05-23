@@ -50,31 +50,43 @@ function App() {
 					renderer.setPixelRatio(window.devicePixelRatio);
 					renderer.setSize(window.innerWidth, window.innerHeight);
 
-					let scene = new THREE.Scene();
-					let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+					const scene = new THREE.Scene();
+					const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 					camera.position.z = 0;
 
-					let sphereGeometry = new THREE.SphereGeometry(1, 256, 128);
-					let material = new THREE.MeshNormalMaterial();
-
-					let sphere = new THREE.Mesh(sphereGeometry, material);
+					const sphereGeometry = new THREE.SphereGeometry(1, 256, 128);
+					const material = new THREE.MeshNormalMaterial();
+					const sphere = new THREE.Mesh(sphereGeometry, material);
 					scene.add(sphere);
 
 					const simplex = new SimplexNoise();
+					let mouse = { x: 0, y: 0 };
 
-					let update = function() {
-						let time = performance.now() * 0.0003;
+					const handleMouseMove = (event) => {
+						mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+						mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+					};
 
-						let k = 6;
+					window.addEventListener('mousemove', handleMouseMove);
+
+					const update = function() {
+						const time = performance.now() * 0.0003;
+						const k = 4;
 
 						for (let i = 0; i < sphere.geometry.attributes.position.count; i++) {
-							let vertex = new THREE.Vector3(
+							const vertex = new THREE.Vector3(
 								sphere.geometry.attributes.position.getX(i),
 								sphere.geometry.attributes.position.getY(i),
 								sphere.geometry.attributes.position.getZ(i)
 							);
 
-							vertex.normalize().multiplyScalar(1 + 0.6 * simplex.noise3D(vertex.x * k + time, vertex.y * k, vertex.z * k));
+							const noiseValue = simplex.noise3D(
+								vertex.x * k + time + mouse.x * 0.5,
+								vertex.y * k + mouse.y * 0.5,
+								vertex.z * k
+							);
+
+							vertex.normalize().multiplyScalar(1 + 0.03 * noiseValue);
 
 							sphere.geometry.attributes.position.setXYZ(i, vertex.x, vertex.y, vertex.z);
 						}
@@ -83,12 +95,11 @@ function App() {
 					};
 
 					function animate() {
-						if (camera.position.z <= 1.05) {
-							camera.position.z += 0.03;
+						if (camera.position.z <= 4.05) {
+							camera.position.z += 0.05;
 						}
 
 						update();
-
 						renderer.render(scene, camera);
 						requestAnimationFrame(animate);
 					}
@@ -102,7 +113,7 @@ function App() {
 
 					document.querySelector('body').style.margin = "0"
 					document.querySelector('body').style.overflow = "hidden"
-					document.querySelector('canvas').style.filter = "blur(28px)"
+					// document.querySelector('canvas').style.filter = "blur(14px)"
 					document.querySelector('canvas').style.outline = "none"
 				</script>
 
