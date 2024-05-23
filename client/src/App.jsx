@@ -30,7 +30,6 @@ function App() {
 		if (!snap.intro) return
 
 		const timeout = setTimeout(() => {
-			// console.log('set initial graphic')
 			setSrcDoc(
 				`
 				<!DOCTYPE html>
@@ -43,6 +42,7 @@ function App() {
 				<script type="module">
 					// Three.js setup
 					const renderer = new THREE.WebGLRenderer({ antialias: true });
+
 					renderer.setSize(window.innerWidth, window.innerHeight);
 					document.body.appendChild(renderer.domElement);
 
@@ -86,7 +86,7 @@ function App() {
 								vertex.z * k
 							);
 
-							vertex.normalize().multiplyScalar(1 + 0.03 * noiseValue);
+							vertex.normalize().multiplyScalar(1 + 0.04 * noiseValue);
 
 							sphere.geometry.attributes.position.setXYZ(i, vertex.x, vertex.y, vertex.z);
 						}
@@ -95,7 +95,7 @@ function App() {
 					};
 
 					function animate() {
-						if (camera.position.z <= 4.05) {
+						if (camera.position.z <= 3.05) {
 							camera.position.z += 0.05;
 						}
 
@@ -113,7 +113,7 @@ function App() {
 
 					document.querySelector('body').style.margin = "0"
 					document.querySelector('body').style.overflow = "hidden"
-					// document.querySelector('canvas').style.filter = "blur(14px)"
+					document.querySelector('canvas').style.filter = "blur(14px)"
 					document.querySelector('canvas').style.outline = "none"
 				</script>
 
