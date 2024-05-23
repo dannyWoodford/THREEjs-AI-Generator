@@ -1,7 +1,14 @@
 # THREEjs-AI-Generator and Live Editor
 
-### Demo
-[Demo]([[https://www.google.com](https://threejs-ai-generator.web.app/)])
+### [Live Demo](https://threejs-ai-generator.web.app/)
+
+
+https://github.com/dannyWoodford/THREEjs-AI-Generator/assets/50857236/28d057df-cba7-453a-84ed-518ac5ad69b9
+
+
+
+
+
 
 ## Getting Started
 `cd` into **client** then run `npm run dev`
