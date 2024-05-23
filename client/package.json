@@ -23,7 +23,7 @@
 		"react-codemirror2": "^8.0.0",
 		"react-dom": "^18.3.1",
 		"react-split": "^2.0.14",
-		"three": "^0.145.0",
-		"valtio": "^1.10.5"
+		"three": "^0.164.1",
+		"valtio": "^1.13.2"
 	}
 }

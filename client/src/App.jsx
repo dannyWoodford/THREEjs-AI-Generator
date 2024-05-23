@@ -37,73 +37,68 @@ function App() {
 				<html>
 
 				<head>
-					<script src="https://cdn.jsdelivr.net/npm/three@0.122.0/build/three.min.js"></script>
-					<script src="https://fariskassim.com/stage/rebel9/teaf/blob/v4/js/perlin.js"></script>
+					<script src="https://cdn.jsdelivr.net/npm/three@0.136.0/build/three.min.js"></script>
+					<script src="https://cdn.jsdelivr.net/npm/simplex-noise@2.4.0/simplex-noise.min.js"></script>
 				</head>
 				<script type="module">
-					// create the renderer
+					// Three.js setup
 					const renderer = new THREE.WebGLRenderer({ antialias: true });
 					renderer.setSize(window.innerWidth, window.innerHeight);
 					document.body.appendChild(renderer.domElement);
 
-					// default bg canvas color //
 					renderer.setClearColor('#001c95');
-					//  use device aspect ratio //
 					renderer.setPixelRatio(window.devicePixelRatio);
-					// set size of canvas within window //
 					renderer.setSize(window.innerWidth, window.innerHeight);
 
 					let scene = new THREE.Scene();
-					let camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
+					let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 					camera.position.z = 0;
-					
+
 					let sphereGeometry = new THREE.SphereGeometry(1, 256, 128);
 					let material = new THREE.MeshNormalMaterial();
-					
+
 					let sphere = new THREE.Mesh(sphereGeometry, material);
 					scene.add(sphere);
 
-					let update = function() {
-							
-						// change '0.0003' for more aggressive animation
-						let time = performance.now() * 0.0003;
-						
-						//go through vertices here and reposition them
-						
-						// change 'k' value for more spikes
-						let k = 6;
-						
-						// for (let i = 0; i < sphere.geometry.vertices.length; i++) {
-						// 	let p = sphere.geometry.vertices[i];
-						// 	p.normalize().multiplyScalar(1 + 0.6 * noise.perlin3(p.x * k + time, p.y * k, p.z * k));
-						// }
-						sphere.geometry.computeVertexNormals();
-						sphere.geometry.normalsNeedUpdate = true;
-						sphere.geometry.verticesNeedUpdate = true;
-					}
-					
-					function animate() {
-						// sphere.rotation.y += 0.01;
+					const simplex = new SimplexNoise();
 
+					let update = function() {
+						let time = performance.now() * 0.0003;
+
+						let k = 6;
+
+						for (let i = 0; i < sphere.geometry.attributes.position.count; i++) {
+							let vertex = new THREE.Vector3(
+								sphere.geometry.attributes.position.getX(i),
+								sphere.geometry.attributes.position.getY(i),
+								sphere.geometry.attributes.position.getZ(i)
+							);
+
+							vertex.normalize().multiplyScalar(1 + 0.6 * simplex.noise3D(vertex.x * k + time, vertex.y * k, vertex.z * k));
+
+							sphere.geometry.attributes.position.setXYZ(i, vertex.x, vertex.y, vertex.z);
+						}
+						sphere.geometry.computeVertexNormals();
+						sphere.geometry.attributes.position.needsUpdate = true;
+					};
+
+					function animate() {
 						if (camera.position.z <= 1.05) {
 							camera.position.z += 0.03;
 						}
 
 						update();
-						
-						/* render scene and camera */
-						renderer.render(scene,camera);
+
+						renderer.render(scene, camera);
 						requestAnimationFrame(animate);
 					}
 					requestAnimationFrame(animate);
 
-					window.addEventListener( 'resize', onWindowResize, false );
-					
-					function onWindowResize(){
+					window.addEventListener('resize', () => {
 						camera.aspect = window.innerWidth / window.innerHeight;
 						camera.updateProjectionMatrix();
-						renderer.setSize( window.innerWidth, window.innerHeight );
-					}
+						renderer.setSize(window.innerWidth, window.innerHeight);
+					});
 
 					document.querySelector('body').style.margin = "0"
 					document.querySelector('body').style.overflow = "hidden"
@@ -145,12 +140,11 @@ function App() {
 	useMemo(() => {
 		if (!snap.isCodeGenerated) return
 
-		// console.log('set generatedCode + basics')
 		let orbitPrompt = checkboxState.enableOrbitControls
 			? `
-// Add OrbitControls
-let controls = new THREE.OrbitControls(camera, renderer.domElement);
-`
+				// Add OrbitControls
+				let controls = new THREE.OrbitControls(camera, renderer.domElement);
+			`
 			: ``
 
 		setJs(
@@ -159,29 +153,29 @@ let controls = new THREE.OrbitControls(camera, renderer.domElement);
 				orbitPrompt +
 				// Add Spotlight
 				`
-let genSpotLight = new THREE.SpotLight(0xffa95c,1);
-genSpotLight.position.set(0,350,0);
-genSpotLight.castShadow = true;
-scene.add( genSpotLight );
+					let genSpotLight = new THREE.SpotLight(0xffa95c,1);
+					genSpotLight.position.set(0,350,0);
+					genSpotLight.castShadow = true;
+					scene.add( genSpotLight );
 
-let ambLight = new THREE.AmbientLight('white', 0.1)
-scene.add(ambLight)
-` +
+					let ambLight = new THREE.AmbientLight('white', 0.1)
+					scene.add(ambLight)
+				` +
 				`
-// Handle Resize
-window.addEventListener( 'resize', onWindowResize, false );
+					// Handle Resize
+					window.addEventListener( 'resize', onWindowResize, false );
 
-function onWindowResize(){
-camera.aspect = window.innerWidth / window.innerHeight;
-camera.updateProjectionMatrix();
-renderer.setSize( window.innerWidth, window.innerHeight );
-}` +
+					function onWindowResize(){
+					camera.aspect = window.innerWidth / window.innerHeight;
+					camera.updateProjectionMatrix();
+					renderer.setSize( window.innerWidth, window.innerHeight );
+				}` +
 				`
-// Fix CSS of generated iFrame
-document.querySelector('body').style.margin = "0"
-document.querySelector('body').style.overflow = "hidden"
-document.querySelector('canvas').style.outline = "none"
-`
+					// Fix CSS of generated iFrame
+					document.querySelector('body').style.margin = "0"
+					document.querySelector('body').style.overflow = "hidden"
+					document.querySelector('canvas').style.outline = "none"
+				`
 		)
 	}, [snap.isCodeGenerated])
 
@@ -217,14 +211,14 @@ document.querySelector('canvas').style.outline = "none"
 			// console.log('%csanitizeResponse', 'color:yellow;font-size:16px;', sanitizeResponse(data.code))
 
 			state.generatedCode = sanitizeResponse(data.code)
-			state.isCodeGenerated = true
+			state.isCodeGenerated = 'true'
 		} catch (error) {
 			console.log('%cError', 'color:red;font-size:16px;')
 			alert(error)
 		} finally {
 			// console.log('%cFinally -- reset', 'color:yellow;font-size:16px;')
 			setGeneratingCode(false)
-			state.isCodeGenerated = false
+			state.isCodeGenerated = 'false'
 		}
 	}
 
