@@ -2,6 +2,7 @@
 
 ### Demo
 [Demo]([http://semver.org/](https://threejs-ai-generator.web.app/))
+[I'm an inline-style link](https://www.google.com)
 
 ## Getting Started
 `cd` into **client** then run `npm run dev`
