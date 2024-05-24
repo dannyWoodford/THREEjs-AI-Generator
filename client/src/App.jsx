@@ -315,7 +315,7 @@ function App() {
 			<Split className='editor' sizes={[35, 65]} direction='horizontal'>
 				<div className='pane top-pane'>
 					<Split className='left-split' sizes={[70, 29]} direction='vertical'>
-						<Editor language='javascript' displayName={snap.d3Generator ? 'D3 AI Generator' : 'THREE.js AI Generator'} value={js} onChange={setJs} />
+						<Editor language='javascript' value={js} onChange={setJs} />
 						<AIGenerator promptCode={promptCode} setPromptCode={setPromptCode} generatingCode={generatingCode} handleSubmit={handleSubmitCode} />
 					</Split>
 				</div>

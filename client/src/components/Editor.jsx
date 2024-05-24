@@ -12,7 +12,7 @@ import { useSnapshot } from 'valtio'
 
 export default function Editor(props) {
 	const snap = useSnapshot(state)
-	const { displayName, value, icon, onChange, language } = props
+	const { value, icon, onChange, language } = props
 	const handleChange = (editor, data, value) => {
 		onChange(value)
 	}
@@ -24,7 +24,7 @@ export default function Editor(props) {
 	return (
 		<div className='editor-container'>
 			<div className='editor-title'>
-				{displayName}
+				{snap.d3Generator ? 'D3.js AI Generator' : 'THREE.js AI Generator'}
 				<button className='d3-switch-button' onClick={clickHandler}>
 					Switch to {snap.d3Generator ? 'THREE.js AI Generator' : 'D3 AI Generator'}
 				</button>
