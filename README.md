@@ -1,4 +1,4 @@
-# THREEjs-AI-Generator and Live Editor
+# THREEjs/D3.js AI Generator and Live Editor
 
 ### [Live Demo](https://threejs-ai-generator.web.app/)
 <br>
