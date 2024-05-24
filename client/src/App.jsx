@@ -8,13 +8,14 @@ import { AIGenerator } from './components'
 import state from './store'
 import Home from './pages/Home'
 import Editor from './components/Editor'
+import { Footer } from './components/Footer'
 
 function App() {
 	const snap = useSnapshot(state)
-	
+
 	const [js, setJs] = useState()
 	const [srcDoc, setSrcDoc] = useState()
-	
+
 	const [promptCode, setPromptCode] = useState(
 		'Create the solar system with the 8 planets and a sun. The planets should orbit the sun and have white orbit lines to show their path. The orbit lines should be made with LineLoop and have a "x" rotation of "-Math.PI / 2". PLanets and sun materials should be MeshLambertMaterial. Orbit lines materials should be MeshBasicMaterial. Planets should have color closest to the real planets. The sun would have a yellow emissive. PerspectiveCamera should have a far of 5000, a "y" position of 200, and a "x" position of 800.'
 	)
@@ -36,7 +37,7 @@ function App() {
 
 		state.intro = true
 	}, [snap.d3Generator])
-	
+
 	useEffect(() => {
 		// console.log('Reset while waiting for generated code', generatingCode)
 		// Reset when asking for a new prompt or switching generators
@@ -170,17 +171,19 @@ function App() {
 								}
 							
 								body {
-									display: block;
-									height: 90%;
-									width: 90%;
+									height: 100%;
+									width: 100%;
 									margin: auto;
 									overflow: hidden;
+									display: flex;
+									justify-content: center;
+									align-items: center;
 								}
 
 								#chart-container {
 									display: block;
-									height: 100%;
-									width: 100%;
+									height: 90%;
+									width: 90%;
 								}
 							</style>
 						</head>
@@ -230,8 +233,8 @@ function App() {
 			)
 		} else {
 			setJs(
-				snap.generatedCode 
-				+ 
+				snap.generatedCode
+				+
 				`
 				// Add OrbitControls
 				let controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -320,12 +323,13 @@ function App() {
 					</Split>
 				</div>
 				<div className='pane'>
-						<iframe
-							srcDoc={srcDoc}
-							title='output'
-							sandbox='allow-scripts'
-							style={{ width: '100%', height: '100%', border: 'none', userSelect: 'none', position: 'relative', zIndex: '0' }}
-						/>
+					<iframe
+						srcDoc={srcDoc}
+						title='output'
+						sandbox='allow-scripts'
+						style={{ width: '100%', height: '100%', border: 'none', userSelect: 'none', position: 'relative', zIndex: '0' }}
+					/>
+					<Footer />
 				</div>
 			</Split>
 		</main>

@@ -74,11 +74,6 @@ html {
 	border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.top-pane {
-	background-color: hsl(225, 6%, 25%);
-	z-index: 11;
-}
-
 .pane {
 	width: 50vw;
 	height: 100%;
@@ -87,6 +82,10 @@ html {
 	z-index: 0;
 }
 
+.top-pane {
+	background-color: hsl(225, 6%, 25%);
+	z-index: 11;
+}
 .editor-container {
 	flex-grow: 1;
 	flex-basis: 0%;
@@ -216,4 +215,65 @@ html {
 	left: 0;
 	top: 0;
 	border-radius: 10px;
+}
+
+
+
+
+/* Footer _____________________________________________________________________ */
+.pmndrs-menu {
+    font-family: 'Inter var', sans-serif;
+    position: absolute;
+		pointer-events: all;
+    z-index: 1000;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    color: #808080;
+    padding: 40px;
+    justify-content: flex-start;
+    align-items: flex-end;
+    flex-direction: row;
+    font-size: calc(10px + 0.1vmin);
+    line-height: 1.5em;
+
+		visibility: visible;
+		opacity: 1;
+		transition: visibility 0.5s, opacity 0.5s linear;
+}
+
+.pmndrs-menu.hide {
+	visibility: hidden;
+  opacity: 0;
+}
+
+.pmndrs-menu > div {
+    word-wrap: none;
+    word-break: none;
+    white-space: pre;
+    padding-left: 25px;
+    padding-right: 25px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+		pointer-events: auto;
+	}
+	
+	.pmndrs-menu > div b {
+		pointer-events: auto;
+    font-weight: 600;
+    color: #b0b0b0;
+	}
+
+.pmndrs-menu a {
+    pointer-events: auto;
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+}
+
+.pmndrs-menu a:hover {
+    text-decoration: underline;
+    color: inherit;
 }

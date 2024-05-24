@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { useSnapshot } from 'valtio'
 import { headContainerAnimation, headContentAnimation, headTextAnimation, slideAnimation } from '../config/motion'
+import { useSnapshot } from 'valtio'
 
 import state from '../store'
 
@@ -26,7 +26,6 @@ const Home = ({ generatingCode }) => {
 									<strong>Warning!!!</strong> Prompts should be relatively basic. Code quality varies
 									and sometimes has errors. The more descriptive the prompt, the better. Try the example prompt...
 								</p>
-
 							</motion.div>
 						</motion.div>
 					</motion.section>
