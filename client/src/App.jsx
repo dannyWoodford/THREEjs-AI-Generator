@@ -22,8 +22,9 @@ function App() {
 	const [isCodeGenerated, setIsCodeGenerated] = useState(false)
 
 	useEffect(() => {
-		// if (snap.intro) return
-		console.log('setPromptCode', snap.d3Generator)
+		// console.log('Switch Generator', snap.d3Generator)
+
+		// Reset promptCode and animated intro text when switching generators
 
 		if (snap.d3Generator) {
 			setPromptCode('Create an interactive sunburst visualization with random data.')
@@ -32,12 +33,18 @@ function App() {
 				'Create the solar system with the 8 planets and a sun. The planets should orbit the sun and have white orbit lines to show their path. The orbit lines should be made with LineLoop and have a "x" rotation of "-Math.PI / 2". PLanets and sun materials should be MeshLambertMaterial. Orbit lines materials should be MeshBasicMaterial. Planets should have color closest to the real planets. The sun would have a yellow emissive. PerspectiveCamera should have a far of 5000, a "y" position of 200, and a "x" position of 800.'
 			)
 		}
+
+		state.intro = true
 	}, [snap.d3Generator])
-
+	
 	useEffect(() => {
-		// if (snap.intro) return
-		console.log('RESET or loading', generatingCode)
+		// console.log('Reset while waiting for generated code', generatingCode)
+		// Reset when asking for a new prompt or switching generators
 
+		// generatingCode is needed as a dependency to reset screen when asking for a new prompt
+		// snap.d3Generator is needed as a dependency to reset screen when switching generators
+
+		setJs('')
 		setIsCodeGenerated(false)
 
 		const timeout = setTimeout(() => {
@@ -138,7 +145,7 @@ function App() {
 	useMemo(() => {
 		if (!js) return
 
-		console.log('%cSWAP Canvas', 'color:red;font-size:14px;', isCodeGenerated)
+		// console.log('%cSWAP Canvas', 'color:red;font-size:14px;', isCodeGenerated)
 
 		if (snap.d3Generator) {
 			const timeout = setTimeout(() => {
@@ -213,8 +220,9 @@ function App() {
 
 	useEffect(() => {
 		if (!isCodeGenerated) return
-
 		// console.log('isCodeGenerated', isCodeGenerated)
+
+		// Needed to add default code to returned generated code
 
 		if (snap.d3Generator) {
 			setJs(
@@ -295,7 +303,7 @@ function App() {
 			console.log('%cError', 'color:red;font-size:16px;')
 			alert(error)
 		} finally {
-			console.log('%cFinally -- reset', 'color:yellow;font-size:16px;')
+			// console.log('%cFinally -- reset', 'color:yellow;font-size:16px;')
 			setGeneratingCode(false)
 			setIsCodeGenerated(true)
 		}

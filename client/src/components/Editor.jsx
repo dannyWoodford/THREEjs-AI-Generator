@@ -11,7 +11,7 @@ import { useSnapshot } from 'valtio'
 
 
 export default function Editor(props) {
-		const snap = useSnapshot(state)
+	const snap = useSnapshot(state)
 	const { displayName, value, icon, onChange, language } = props
 	const handleChange = (editor, data, value) => {
 		onChange(value)
