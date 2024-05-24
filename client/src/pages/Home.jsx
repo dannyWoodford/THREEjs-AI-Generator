@@ -1,6 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useSnapshot } from 'valtio'
-import { Spinner } from '@material-tailwind/react'
 import { headContainerAnimation, headContentAnimation, headTextAnimation, slideAnimation } from '../config/motion'
 
 import state from '../store'
@@ -21,9 +20,13 @@ const Home = ({ generatingCode }) => {
 							</motion.div>
 							<motion.div {...headContentAnimation} className='flex flex-col gap-5 sub-text'>
 								<p className='max-w-lg font-normal text-gray-300 text-base'>
-									Have OpenAI write basic THREE.js code and edit the result. <strong>Warning!!!</strong> Prompts should be relatively basic. Code quality varies
+									Have ChatGPT write basic {snap.d3Generator ? 'D3.js' : 'THREE.js'} code and edit the result. 
+								</p>
+								<p className='max-w-lg font-normal text-gray-300 text-base'>
+									<strong>Warning!!!</strong> Prompts should be relatively basic. Code quality varies
 									and sometimes has errors. The more descriptive the prompt, the better. Try the example prompt...
 								</p>
+
 							</motion.div>
 						</motion.div>
 					</motion.section>

@@ -1,9 +1,8 @@
-import React from 'react'
 import CustomButton from './CustomButton'
 import state from '../store'
 
 const AIGenerator = ({ promptCode, setPromptCode, generatingCode, handleSubmit }) => {
-
+	
 	return (
 		<div className='aigenerator-container'>
 			<textarea placeholder='Ask AI...' rows={5} value={promptCode} onChange={(e) => setPromptCode(e.target.value)} className='aigenerator-textarea' />
@@ -13,7 +12,7 @@ const AIGenerator = ({ promptCode, setPromptCode, generatingCode, handleSubmit }
 				) : (
 					<CustomButton
 						type='filled'
-						title='Prompt OpenAI'
+						title='Prompt ChatGPT'
 						handleClick={() => {
 							state.intro = false
 							handleSubmit()

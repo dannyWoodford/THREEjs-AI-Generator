@@ -7,6 +7,7 @@
 
 html {
 	font-family: 'Inter', sans-serif;
+	background: #000;
 }
 
 @supports (font-variation-settings: normal) {
@@ -48,7 +49,7 @@ html {
 .head-text {
 	@apply text-[10rem] leading-[11rem] font-black;
 	color: aliceblue;
-	text-align: center
+	text-align: center;
 }
 
 .sub-text {
@@ -82,6 +83,8 @@ html {
 	width: 50vw;
 	height: 100%;
 	display: flex;
+	position: relative;
+	z-index: 0;
 }
 
 .editor-container {
@@ -93,17 +96,10 @@ html {
 	background-color: hsl(225, 6%, 25%);
 }
 
-.editor-container.collapsed {
-	flex-grow: 0;
-}
-.editor-container.collapsed .CodeMirror-scroll {
-	position: absolute;
-	overflow: hidden !important;
-}
-
 .editor-title {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	background-color: hsl(225, 6%, 13%);
 	color: white;
 	padding: 0.5rem 0.5rem 0.5rem 1rem;
@@ -148,13 +144,76 @@ html {
 }
 
 .gutter {
-  background: transparent;
+	background: transparent;
 	transition: background 0.25s ease;
 	background: #2a2f3d;
 	z-index: 11;
 }
 
 .gutter:hover {
-  background: #1c55ff;
+	background: #1c55ff;
 }
 
+
+@keyframes glowing {
+	0% {
+		background-position: 0 0;
+	}
+	50% {
+		background-position: 400% 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+
+.d3-switch-button {
+	width: 275px;
+	min-height: 30px;
+	border: none;
+	outline: none;
+	color: #fff;
+	background: #111;
+	cursor: pointer;
+	position: relative;
+	z-index: 100;
+	border-radius: 10px;
+	pointer-events: all;
+}
+
+.d3-switch-button:before {
+	content: '';
+	background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+	position: absolute;
+	top: -2px;
+	left: -2px;
+	background-size: 400%;
+	z-index: -1;
+	filter: blur(5px);
+	width: calc(100% + 4px);
+	height: calc(100% + 4px);
+	animation: glowing 20s linear infinite;
+	opacity: 1;
+	transition: opacity 0.3s ease-in-out;
+	border-radius: 10px;
+}
+
+.d3-switch-button:active {
+	color: #000;
+}
+
+.d3-switch-button:active:after {
+	background: transparent;
+}
+
+.d3-switch-button:after {
+	z-index: -1;
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: #111;
+	left: 0;
+	top: 0;
+	border-radius: 10px;
+}

@@ -25,14 +25,3 @@ export const FilterTabs = [
     icon: stylishShirt,
   },
 ];
-
-export const DecalTypes = {
-  logo: {
-    stateProperty: "logoDecal",
-    filterTab: "logoShirt",
-  },
-  full: {
-    stateProperty: "fullDecal",
-    filterTab: "stylishShirt",
-  },
-};
