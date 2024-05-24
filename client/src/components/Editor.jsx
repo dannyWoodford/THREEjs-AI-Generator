@@ -26,7 +26,7 @@ export default function Editor(props) {
 			<div className='editor-title'>
 				{snap.d3Generator ? 'D3.js AI Generator' : 'THREE.js AI Generator'}
 				<button className='d3-switch-button' onClick={clickHandler}>
-					Switch to {snap.d3Generator ? 'THREE.js AI Generator' : 'D3 AI Generator'}
+					Switch to {snap.d3Generator ? 'THREE.js AI Generator' : 'D3.js AI Generator'}
 				</button>
 			</div>
 			<ControlledEditor
