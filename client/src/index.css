@@ -265,6 +265,9 @@ html {
     font-weight: 600;
     color: #b0b0b0;
 	}
+	.pmndrs-menu .my-name {
+		padding-bottom: 4px;
+	}
 
 .pmndrs-menu a {
     pointer-events: auto;

@@ -1,6 +1,6 @@
 import { useSnapshot } from 'valtio'
 
-import { Logo } from './Logo'
+import { OctoLogo } from './Logo'
 import state from '../store'
 
 export function Footer() {
@@ -9,10 +9,12 @@ export function Footer() {
 	return (
 		<div className={`pmndrs-menu ${snap.intro ? '' : 'hide'}`}>
 			<div>
-				<Logo style={{ width: 42, height: 42 }} color={'#b0b0b0'} />
+				<a target='_blank' rel='noopener noreferrer' href='https://dannywoodforddev.web.app/home'>
+					<OctoLogo style={{ width: 72, height: 72 }} color={'#b0b0b0'} />
+				</a>
 			</div>
 			<div>
-				<span>
+				<span className='my-name'>
 					<b>
 						<a target='_blank' rel='noopener noreferrer' href='https://dannywoodforddev.web.app/home'>
 							Danny Woodford
