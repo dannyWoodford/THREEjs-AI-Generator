@@ -17,7 +17,7 @@ https://github.com/dannyWoodford/THREEjs-AI-Generator/assets/50857236/50822778-1
 ## Getting Started
 `cd` into **client** then run `npm run dev`
 
-### For local Development
+### For local **Server** Development
 * `cd` into **server** then run `npm start`
 
 * Change fetch request url to local url `'http://localhost:8080/v1/chat/completions'` but remember to change it back before deploying
